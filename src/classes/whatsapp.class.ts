@@ -11,13 +11,21 @@ export class WhatsappButton implements IShareButton {
 
   link(url: string, args?: ShareButtonArgs) {
 
-    let shareUrl = this.prop.shareUrl;
+    let shareUrl = this.shareUrl(args.mobile);
 
     if (args.description) {
       shareUrl += args.description + ' %0A';
     }
 
     return shareUrl + url;
+  }
+
+  shareUrl(mobileType: string) {
+    switch (mobileType) {
+      case 'Android': return this.prop.androidUrl
+      case 'iOS': return this.prop.iosUrl
+      default: return this.prop.shareUrl
+    }
   }
 
   count() {

@@ -4,16 +4,23 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import { IShareButton, ShareButtonProp } from '../models/share-buttons.models';
+import { IShareButton, ShareButtonProp, ShareButtonArgs } from '../models/share-buttons.models';
 
 export class FacebookButton implements IShareButton {
 
   constructor(public prop: ShareButtonProp, private http: HttpClient) {
   }
 
-  link(url: string) {
+  link(url: string, args?: ShareButtonArgs) {
+    return this.shareUrl(args.mobile) + url;
+  }
 
-    return this.prop.shareUrl + url;
+  shareUrl(mobileType: string) {
+    switch (mobileType) {
+      case 'Android': return this.prop.androidUrl
+      case 'iOS': return this.prop.iosUrl
+      default: return this.prop.shareUrl
+    }
   }
 
   count(url: string) {

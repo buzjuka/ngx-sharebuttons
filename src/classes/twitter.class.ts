@@ -12,7 +12,7 @@ export class TwitterButton implements IShareButton {
 
   link(url: string, args?: ShareButtonArgs) {
 
-    let shareUrl = this.prop.shareUrl + url;
+    let shareUrl = this.shareUrl(args.mobile) + url;
 
     if (args.description) {
       shareUrl += '&text=' + args.description;
@@ -27,6 +27,14 @@ export class TwitterButton implements IShareButton {
     }
 
     return shareUrl;
+  }
+
+  shareUrl(mobileType: string) {
+    switch (mobileType) {
+      case 'Android': return this.prop.androidUrl
+      case 'iOS': return this.prop.iosUrl
+      default: return this.prop.shareUrl
+    }
   }
 
   count() {
