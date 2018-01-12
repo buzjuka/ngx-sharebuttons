@@ -6,7 +6,6 @@
 /demo/
 
 # compiled output
-/dist
 /tmp
 
 # dependencies
